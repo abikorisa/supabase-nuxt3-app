@@ -1,5 +1,24 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import path from "path";
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true }
+  runtimeConfig: {
+    public: {
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_KEY: process.env.SUPABASE_KEY,
+    },
+  },
+  modules: [
+    '@nuxtjs/tailwindcss',
+    ['@nuxtjs/tailwindcss', { exposeConfig: true, viewer: true }]
+  ],
+  plugins: [
+    '~/plugins/supabase.ts'
+  ],
+  vite: {
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./"),
+      },
+    },
+  },
+  compatibilityDate: "2025-01-30",
 })
